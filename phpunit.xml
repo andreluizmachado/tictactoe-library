@@ -1,0 +1,9 @@
+<phpunit
+         bootstrap="vendor/autoload.php"
+         colors="true">
+  <testsuites>
+    <testsuite name="TicTacToe Engine Tests Suite">
+      <directory>tests</directory>
+    </testsuite>
+  </testsuites>
+</phpunit>
