@@ -1,0 +1,12 @@
+{
+    "name": "andreluizmachado/tictactoe-library",
+    "description": "The tic tac toe engine",
+    "type": "library",
+    "authors": [
+        {
+            "name": "André Luiz Machado",
+            "email": "andre.luiz.kbca@gmail.com"
+        }
+    ],
+    "require": {}
+}
