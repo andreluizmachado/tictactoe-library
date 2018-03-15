@@ -11,48 +11,14 @@ final class BotTest extends TestCase
     /**
      * @test
      */
-    public function withNoPlayShouldReturnAllPlays(): void
-    {   
-        $bot = new Bot();
-        $nextPlays = $bot->getNextPlays([]);
+    public function withNoPlayShouldReturnTheNextPlay(): void
+    {
+        $bot = new Bot([]);
+        $nextPlays = $bot->getNextPlay();
 
         $expected = [
-            [
-                'column' => 1,
-                'line' => 1,
-            ],
-            [
-                'column' => 1,
-                'line' => 2,
-            ],
-            [
-                'column' => 1,
-                'line' => 3,
-            ],
-            [
-                'column' => 2,
-                'line' => 1,
-            ],
-            [
-                'column' => 2,
-                'line' => 2,
-            ],
-            [
-                'column' => 2,
-                'line' => 3,
-            ],
-            [
-                'column' => 3,
-                'line' => 1,
-            ],
-            [
-                'column' => 3,
-                'line' => 2,
-            ],
-            [
-                'column' => 3,
-                'line' => 3,
-            ],
+            'column' => 1,
+            'line' => 1,
         ];
 
         $this->assertEquals(
@@ -64,53 +30,23 @@ final class BotTest extends TestCase
     /**
      * @test
      */
-    public function withANumberOfPlaysShouldReturnTheNextPlays(): void
-    {   
-        $bot = new Bot();
-
-        $expected = [
-            [
-                'column' => 1,
-                'line' => 1,
-            ],
-            [
-                'column' => 1,
-                'line' => 2,
-            ],
-            [
-                'column' => 1,
-                'line' => 3,
-            ],
-            [
-                'column' => 2,
-                'line' => 1,
-            ],
-            [
-                'column' => 2,
-                'line' => 2,
-            ],
-            [
-                'column' => 2,
-                'line' => 3,
-            ],
-            [
-                'column' => 3,
-                'line' => 1,
-            ],
-            [
-                'column' => 3,
-                'line' => 2,
-            ],
-        ];
-
-        $nextPlays = $bot->getNextPlays(
+    public function withOnePlayShouldReturnTheNextPlay(): void
+    {
+        $bot = new Bot(
             [
                 [
                     'column' => 3,
                     'line' => 3,
                 ],
-            ]            
+            ]
         );
+
+        $expected = [
+            'column' => 1,
+            'line' => 1,
+        ];
+
+        $nextPlays = $bot->getNextPlay();
 
         $this->assertEquals(
             $expected,
@@ -121,56 +57,88 @@ final class BotTest extends TestCase
     /**
      * @test
      */
-    public function withTwoPlaysShouldReturnTheNextPlays(): void
-    {   
-        $bot = new Bot();
+    public function withTwoPlaysShouldReturnTheNextPlay(): void
+    {
+        $bot = new Bot(
+            [
+                [
+                    'column' => 1,
+                    'line' => 1,
+                ],
+                [
+                    'column' => 3,
+                    'line' => 3,
+                ],
+            ]
+        );
 
         $expected = [
-            [
-                'column' => 1,
-                'line' => 1,
-            ],
-            [
-                'column' => 1,
-                'line' => 2,
-            ],
-            [
-                'column' => 1,
-                'line' => 3,
-            ],
-            [
-                'column' => 2,
-                'line' => 1,
-            ],
-            [
-                'column' => 2,
-                'line' => 2,
-            ],
-            [
-                'column' => 3,
-                'line' => 1,
-            ],
-            [
-                'column' => 3,
-                'line' => 2,
-            ],
+            'column' => 1,
+            'line' => 2,
         ];
 
-        $nextPlays = $bot->getNextPlays(
+        $nextPlays = $bot->getNextPlay();
+
+        $this->assertEquals(
+            $expected,
+            $nextPlays
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function withoutPlaysShouldReturnNull(): void
+    {
+        $bot = new Bot(
             [
+                [
+                    'column' => 1,
+                    'line' => 1,
+                ],
+                [
+                    'column' => 1,
+                    'line' => 2,
+                ],
+                [
+                    'column' => 1,
+                    'line' => 3,
+                ],
+                [
+                    'column' => 2,
+                    'line' => 1,
+                ],
+                [
+                    'column' => 2,
+                    'line' => 2,
+                ],
                 [
                     'column' => 2,
                     'line' => 3,
                 ],
                 [
                     'column' => 3,
+                    'line' => 1,
+                ],
+                [
+                    'column' => 3,
+                    'line' => 2,
+                ],
+                [
+                    'column' => 3,
                     'line' => 3,
                 ],
-            ]            
+            ]
         );
 
-        $this->assertEquals(
-            $expected,
+        $expected = [
+            'column' => 1,
+            'line' => 2,
+        ];
+
+        $nextPlays = $bot->getNextPlay();
+
+        $this->assertNull(
             $nextPlays
         );
     }

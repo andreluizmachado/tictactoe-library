@@ -3,9 +3,13 @@ declare(strict_types=1);
 
 namespace AndreLuizMachado\TicTacToe\Engine;
 
-class Bot
+use AndreLuizMachado\TicTacToe\Engine\AllPlaysTrait;
+
+class Bot implements PlayerInterface
 {
-	private $possiblePlays = [
+    use AllPlaysTrait;
+
+    private $possiblePlays = [
         [
             'column' => 1,
             'line' => 1,
@@ -44,38 +48,63 @@ class Bot
         ],
     ];
 
+    private $previousPlays;
+
+    /**
+     * @param array $previousPlays the made plays aready done
+     */
+    public function __construct(array $previousPlays)
+    {
+        $this->previousPlays = $previousPlays;
+    }
+
     /**
      * return the next plays of the game
-     * @param array $madePlays the made plays aready done
      * @return array a list with the possible next plays
      */
-    public function getNextPlays(array $madePlays): array
+    public function getNextPlay():? array
     {
-    	$nextPlays = array_filter(
-        	$this->possiblePlays,
-        	function ($possiblePlay) use ($madePlays) {
-        		return false === $this->playWasMade($madePlays, $possiblePlay);
-        	}
+        $nextPlays = array_filter(
+            $this->possiblePlays,
+            function ($possiblePlay) {
+                return $this->playWasMade($possiblePlay) === false;
+            }
         );
 
-        return array_values($nextPlays);
+        return array_shift($nextPlays);
+    }
+
+    public function getPreviousPlays():? array
+    {
+        return $this->previousPlays;
+    }
+
+
+    public function setWinner(bool $winner): PlayerInterface
+    {
+        $this->winner = $winner;
+        return $this;
+    }
+
+    public function isWinner(): bool
+    {
+        return $this->winner;
     }
 
     /**
      * check if tha play was made
-     * @param array $madePlays the made plays aready done
      * @param array $playToCompare the play to compare
      * @return boolean
      */
-    private function playWasMade(array $madePlays, array $playToCompare): bool
+    private function playWasMade(array $playToCompare): bool
     {
-    	foreach ($madePlays as $madePlay) {
-    		if ($madePlay['column'] === $playToCompare['column']
-    			&& $madePlay['line'] === $playToCompare['line']) {
-    			return true;
-    		}
-    	}
+        foreach ($this->previousPlays as $previousPlay) {
+            if ($previousPlay['column'] === $playToCompare['column']
+                && $previousPlay['line'] === $playToCompare['line']) {
+                return true;
+            }
+        }
 
-    	return false;
+        return false;
     }
 }
