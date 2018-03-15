@@ -59,8 +59,8 @@ class Bot implements PlayerInterface
     }
 
     /**
-     * return the next plays of the game
-     * @return array a list with the possible next plays
+     * return the next play of the game
+     * @return array the next play
      */
     public function getNextPlay():? array
     {
@@ -74,18 +74,28 @@ class Bot implements PlayerInterface
         return array_shift($nextPlays);
     }
 
+    /**
+     * return the previous plays of the game
+     * @return array a list with the possible next plays
+     */
     public function getPreviousPlays():? array
     {
         return $this->previousPlays;
     }
 
-
+    /**
+     * @param bool $winner the winner value
+     * @return PlayerInterface
+     */
     public function setWinner(bool $winner): PlayerInterface
     {
         $this->winner = $winner;
         return $this;
     }
 
+    /**
+     * check if the player is the winner
+     */
     public function isWinner(): bool
     {
         return $this->winner;

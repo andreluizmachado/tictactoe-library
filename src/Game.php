@@ -26,11 +26,17 @@ class Game
         $this->gameStatus = $gameStatus;
     }
 
+    /**
+     * @return string returns the game status
+     */
     public function getStatus(): string
     {
         return $this->gameStatus;
     }
 
+    /**
+     * @return PlayerInterface the winner player
+     */
     public function getWinnerPlayer():? PlayerInterface
     {
         if ($this->playerOne->isWinner()) {

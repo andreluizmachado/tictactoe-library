@@ -19,6 +19,16 @@ class Board
         $this->playerTwo = $playerTwo;
     }
 
+    /**
+     * return the game status
+     * if has a winner it returns a game over status with the
+     * winner player
+     * if the game is running it returns the game running status
+     * without a winner player
+     * if has no plays it returns a game over status
+     * without a winner player
+     * @return Game
+     */
     public function checkGame(): Game
     {
         $gameStatus = Game::GAME_RUNNING_STATUS;
@@ -44,6 +54,10 @@ class Board
         );
     }
 
+    /**
+     * check if has plays
+     * @return bool
+     */
     private function hasPlays(): bool
     {
         $totalPlaysPlayerOne = count($this->playerOne->getAllPlays());
@@ -53,6 +67,11 @@ class Board
         return $totalPlays < 9;
     }
 
+    /**
+     * check if the player won
+     * @param PlayerInterface $player the player to check
+     * @return bool
+     */
     private function playerWon(PlayerInterface $player): bool
     {
         $line = [];
