@@ -74,9 +74,17 @@ class Board
      */
     private function playerWon(PlayerInterface $player): bool
     {
-        $line = [];
-        $column = [];
-        $firstDiagonal = 0;
+        $line = [
+            1 => 0,
+            2 => 0,
+            3 => 0
+        ];
+
+        $column = [
+            1 => 0,
+            2 => 0,
+            3 => 0
+        ];        $firstDiagonal = 0;
         $secondDiagonal = 0;
 
         $playerPlays =  $player->getAllPlays();
