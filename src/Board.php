@@ -5,6 +5,7 @@ namespace AndreLuizMachado\TicTacToe\Engine;
 
 use AndreLuizMachado\TicTacToe\Engine\Game;
 use AndreLuizMachado\TicTacToe\Engine\PlayerInterface;
+use AndreLuizMachado\TicTacToe\Engine\Validation\BoardValidation;
 
 class Board
 {
@@ -31,6 +32,12 @@ class Board
      */
     public function checkGame(): Game
     {
+        (new BoardValidation())
+            ->validate(
+                $this->playerOne,
+                $this->playerTwo
+            );
+
         $gameStatus = Game::GAME_RUNNING_STATUS;
 
         if ($this->playerWon($this->playerOne)) {

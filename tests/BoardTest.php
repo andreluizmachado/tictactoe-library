@@ -151,11 +151,11 @@ final class BoardTest extends TestCase
         $player2 = new Player(
             [
                 [
-                    'column' => 3,
-                    'line' => 2,
+                    'column' => 1,
+                    'line' => 1,
                 ],
                 [
-                    'column' => 3,
+                    'column' => 2,
                     'line' => 1,
                 ],
             ]
@@ -164,16 +164,16 @@ final class BoardTest extends TestCase
         $player1 = new Player(
             [
             [
-                    'line' => 1,
                     'column' => 3,
+                    'line' => 1,
                 ],
                 [
-                    'line' => 2,
                     'column' => 2,
+                    'line' => 2,
                 ],
                 [
-                    'line' => 3,
                     'column' => 1,
+                    'line' => 3,
                 ],
             ]
         );
