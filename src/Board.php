@@ -84,7 +84,9 @@ class Board
             1 => 0,
             2 => 0,
             3 => 0
-        ];        $firstDiagonal = 0;
+        ];
+
+        $firstDiagonal = 0;
         $secondDiagonal = 0;
 
         $playerPlays =  $player->getAllPlays();
