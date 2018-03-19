@@ -77,8 +77,8 @@ final class BotTest extends TestCase
         );
 
         $expected = [
-            'column' => 1,
-            'line' => 2,
+            'line' => 1,
+            'column' => 2,
         ];
 
         $nextPlays = $bot->getNextPlay();

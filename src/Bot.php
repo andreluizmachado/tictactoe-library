@@ -96,8 +96,8 @@ class Bot implements PlayerInterface
         }
 
         return [
-            'column' => ($move[1] + 1),
-            'line' => ($move[0] + 1)
+            'line' => ($move[1] + 1),
+            'column' => ($move[0] + 1),
         ];
     }
 
