@@ -4,6 +4,8 @@ declare(strict_types=1);
 namespace AndreLuizMachado\TicTacToe\Engine;
 
 use AndreLuizMachado\TicTacToe\Engine\AllPlaysTrait;
+use AndreLuizMachado\TicTacToe\Engine\MoveInterface;
+use AndreLuizMachado\TicTacToe\Engine\SimpleBotMove;
 
 class Bot implements PlayerInterface
 {
@@ -49,12 +51,16 @@ class Bot implements PlayerInterface
     ];
 
     private $previousPlays;
+    private $botMove;
 
     /**
      * @param array $previousPlays the made plays aready done
      */
-    public function __construct(array $previousPlays)
-    {
+    public function __construct(
+        array $previousPlays,
+        MoveInterface $botMove = null
+    ) {
+        $this->botMove = $botMove;
         $this->previousPlays = $previousPlays;
     }
 
@@ -64,14 +70,35 @@ class Bot implements PlayerInterface
      */
     public function getNextPlay():? array
     {
-        $nextPlays = array_filter(
-            $this->possiblePlays,
-            function ($possiblePlay) {
-                return $this->playWasMade($possiblePlay) === false;
-            }
+        $board = [
+            ['', '', ''],
+            ['', '', ''],
+            ['', '', ''],
+        ];
+
+        if (is_null($this->getPreviousPlays())) {
+            return null;
+        }
+
+        foreach ($this->getPreviousPlays() as $play) {
+            $lineBoard = $play['line'] - 1;
+            $columnBoard = $play['column'] - 1;
+
+            $board[$lineBoard][$columnBoard] = 'x';
+        }
+
+        $move = $this->getBotMove()->makeMove(
+            $board
         );
 
-        return array_shift($nextPlays);
+        if (empty($move)) {
+            return null;
+        }
+
+        return [
+            'column' => ($move[1] + 1),
+            'line' => ($move[0] + 1)
+        ];
     }
 
     /**
@@ -116,5 +143,13 @@ class Bot implements PlayerInterface
         }
 
         return false;
+    }
+
+    private function getBotMove(): MoveInterface
+    {
+        if (is_null($this->botMove)) {
+            $this->botMove = new SimpleBotMove();
+        }
+        return $this->botMove;
     }
 }

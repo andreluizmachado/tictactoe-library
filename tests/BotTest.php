@@ -4,12 +4,14 @@ declare(strict_types=1);
 namespace AndreLuizMachado\TicTacToe\EngineTests;
 
 use AndreLuizMachado\TicTacToe\Engine\Bot;
+use AndreLuizMachado\TicTacToe\Engine\SimpleBotMove;
 use PHPUnit\Framework\TestCase;
 
 final class BotTest extends TestCase
 {
     /**
      * @test
+     * @group getNextPlay
      */
     public function withNoPlayShouldReturnTheNextPlay(): void
     {
@@ -29,6 +31,7 @@ final class BotTest extends TestCase
 
     /**
      * @test
+     * @group getNextPlay
      */
     public function withOnePlayShouldReturnTheNextPlay(): void
     {
@@ -56,6 +59,7 @@ final class BotTest extends TestCase
 
     /**
      * @test
+     * @group getNextPlayxxx
      */
     public function withTwoPlaysShouldReturnTheNextPlay(): void
     {
@@ -87,6 +91,7 @@ final class BotTest extends TestCase
 
     /**
      * @test
+     * @group getNextPlay
      */
     public function withoutPlaysShouldReturnNull(): void
     {
